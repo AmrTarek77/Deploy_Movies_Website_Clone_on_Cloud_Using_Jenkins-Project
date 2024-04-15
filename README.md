@@ -761,5 +761,3 @@ To deploy an application with ArgoCD, refer to the following steps provided in M
    - Terminate AWS EC2 instances that are no longer needed.
 
 
-
-````
