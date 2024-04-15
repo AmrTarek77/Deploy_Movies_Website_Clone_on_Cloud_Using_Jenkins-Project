@@ -69,7 +69,7 @@ Now recreate the Docker image with your api key:
 
 ```bash
 docker build --build-arg TMDB_V3_API_KEY=<your-api-key> -t movies .
-docker run -d --name netflix -p 8081:80 netflix:latest
+docker run -d --name movies -p 8081:80 movies:latest
 ```
 
 **Phase 2: Security**
