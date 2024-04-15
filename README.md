@@ -381,7 +381,6 @@ These steps will give the "jenkins" user the necessary permissions to access the
    wget https://github.com/prometheus/prometheus/releases/download/v2.47.1/prometheus-2.47.1.linux-amd64.tar.gz
    ```
 
-````
 
 Extract Prometheus files, move them, and create directories:
 
