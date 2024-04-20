@@ -1,12 +1,7 @@
 <div align="center">
   <img src="./public/assets/First.png" alt="Logo" width="100%" height="100%">
-
-  <br>
-    <img src="./public/assets/netflix-logo.png" alt="Logo" width="100" height="32">
-  </a>
+  
 </div>
-
-<br />
 
 <div align="center">
   <img src="./public/assets/Second.png" alt="Logo" width="100%" height="100%">
@@ -198,8 +193,8 @@ pipeline {
         stage("Sonarqube Analysis") {
             steps {
                 withSonarQubeEnv('sonar-server') {
-                    sh '''$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Netflix \
-                    -Dsonar.projectKey=Netflix'''
+                    sh '''$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=movies \
+                    -Dsonar.projectKey=movies'''
                 }
             }
         }
@@ -288,8 +283,8 @@ pipeline{
         stage("Sonarqube Analysis "){
             steps{
                 withSonarQubeEnv('sonar-server') {
-                    sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Netflix \
-                    -Dsonar.projectKey=Netflix '''
+                    sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=movies \
+                    -Dsonar.projectKey=movies '''
                 }
             }
         }
@@ -320,21 +315,21 @@ pipeline{
             steps{
                 script{
                    withDockerRegistry(credentialsId: 'docker', toolName: 'docker'){
-                       sh "docker build --build-arg TMDB_V3_API_KEY=<yourapikey> -t netflix ."
-                       sh "docker tag netflix nasi101/netflix:latest "
-                       sh "docker push nasi101/netflix:latest "
+                       sh "docker build --build-arg TMDB_V3_API_KEY=<yourapikey> -t movies ."
+                       sh "docker tag movies nasi101/movies:latest "
+                       sh "docker push nasi101/movies:latest "
                     }
                 }
             }
         }
         stage("TRIVY"){
             steps{
-                sh "trivy image nasi101/netflix:latest > trivyimage.txt"
+                sh "trivy image nasi101/movies:latest > trivyimage.txt"
             }
         }
         stage('Deploy to container'){
             steps{
-                sh 'docker run -d --name netflix -p 8081:80 nasi101/netflix:latest'
+                sh 'docker run -d --name movies -p 8081:80 nasi101/movies:latest'
             }
         }
     }
@@ -722,7 +717,7 @@ Add a Job to Scrape Metrics on nodeip:9001/metrics in prometheus.yml:
 Update your Prometheus configuration (prometheus.yml) to include a new job for scraping metrics from nodeip:9001/metrics. Add the following configuration to your prometheus.yml file:
 
 ```
-  - job_name: 'Netflix'
+  - job_name: 'movies'
     metrics_path: '/metrics'
     static_configs:
       - targets: ['node1Ip:9100']
